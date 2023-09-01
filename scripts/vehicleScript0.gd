@@ -117,6 +117,21 @@ func _process(delta):
 		warheadInstance.yieldInJoules = 5.0e9*1.0
 		warheadInstance.fuseType = "timed"
 		warheadInstance.fuseParamA = 15.0 # set fuse timer
+		
+		if true: # codeblock to compute fuse timer based on currently selected enemy
+			var predictedDirRes = z0({"projectileVelocity":weaponSecondaryBulletVelocity})
+			
+			print("debug: HERE6544")
+			
+			if predictedDirRes != null: # is predicted direction to fire valid?
+				
+				var bulletManagerNode = get_node(NodePath(^"/root/rootNode/bulletManager"))
+				
+				
+				# set fuse timer
+				warheadInstance.fuseParamA = predictedDirRes["t"]
+				
+				print("debug: fuse timer of bomb was set to timer={fuseTimer}".format({"fuseTimer":warheadInstance.fuseParamA}))
 	
 	######
 	# weapon fire logic: projectile weapon
@@ -133,7 +148,7 @@ func _process(delta):
 			
 			
 			# compute relative velocity of the bullet to the vehicle
-			var bulletRelativeVelocity: Vector3 = predictedDirRes
+			var bulletRelativeVelocity: Vector3 = predictedDirRes["dir"]
 			
 			bulletRelativeVelocity = bulletRelativeVelocity*weaponSecondaryBulletVelocity
 			
@@ -214,8 +229,7 @@ func z0(argsDict):
 	var targetR: float = 1.0 # TODO # radius of target
 	var projectileVelocity: float = argsDict["projectileVelocity"]
 	
-	var aiUtilsNode = get_node(NodePath(^"/root/rootNode/aiUtils"))
-	var predictedDirRes = aiUtilsNode.calcIntersectionOfObjectAndBullet(p, v, targetP, targetV, targetR, projectileVelocity)
+	var predictedDirRes = aiUtils.calcIntersectionOfObjectAndBullet(p, v, targetP, targetV, targetR, projectileVelocity)
 	if predictedDirRes == null:
 		return null
 	

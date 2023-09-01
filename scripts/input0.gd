@@ -9,9 +9,6 @@ func _ready():
 	pass
 
 func _process(delta):
-	#if Input.is_key_pressed(KEY_SHIFT):
-	#	print("Ouch...")
-	
 	var z0 = get_node(entriesPath)
 	var z1 = z0.find_child("vehicle0")
 	
