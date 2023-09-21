@@ -2,43 +2,57 @@
 
 extends Node
 
+class_name input0
+
 #@export_node_path(Resource) var entriesPath
 @export var entriesPath : NodePath
+
+# name of the player controlled vehicle, input is ignored if vehicle wasn't found (because it got removed)
+static var controlledEntityName: String = "vehicle0"
 
 func _ready():
 	pass
 
 func _process(delta):
 	var z0 = get_node(entriesPath)
-	var z1 = z0.find_child("vehicle0")
+	var controlledNode = z0.find_child(controlledEntityName)
 	
-	if z1 != null: # if controlled vehicle was found
+	if controlledNode != null: # if controlled vehicle was found
 		
-		z1.controlAxisA = 0.0
-		z1.controlYaw = 0.0
-		z1.controlFireweapon = false
-		z1.controlFireweaponSecondary = false
+		controlledNode.controlAxisA = 0.0
+		controlledNode.controlYaw = 0.0
+		controlledNode.controlFireweapon = false
+		controlledNode.controlFireweaponSecondary = false
 		
 		if Input.is_action_pressed("forward"):
 			#print("forward") # DBG
 			
-			z1.controlAxisA = 1.0
+			controlledNode.controlAxisA = 1.0
 		
 		if Input.is_action_pressed("backward"):
 			#print("backward") # DBG
 			
-			z1.controlAxisA = -1.0
+			controlledNode.controlAxisA = -1.0
 			
 		
 		if Input.is_action_pressed("yawPos"):
-			z1.controlYaw = 1.0
+			controlledNode.controlYaw = 1.0
 		
 		if Input.is_action_pressed("yawNeg"):
-			z1.controlYaw = -1.0
+			controlledNode.controlYaw = -1.0
 		
 		
 		if Input.is_action_pressed("weaponPrimary"):
-			z1.controlFireweapon = true
+			controlledNode.controlFireweapon = true
 		
 		if Input.is_action_pressed("weaponSecondary"):
-			z1.controlFireweaponSecondary = true
+			controlledNode.controlFireweaponSecondary = true
+		
+		if Input.is_action_just_released("dock") and not controlledNode.retIsDocked():
+			var nodeNearestDockableTarget = controlledNode.retNearestDockableVehicle()
+			if nodeNearestDockableTarget != null: # is there a nearest dockable vehicle?
+				# then dock to it!
+				controlledNode.actionDockTo(nodeNearestDockableTarget.name)
+		
+		if Input.is_action_just_pressed("showMap"):
+			$"../gui_static/solarMap".show2(not $"../gui_static/solarMap".visible)

@@ -4,11 +4,6 @@ extends Node3D
 
 class_name aiUtils
 
-#func _ready():
-#	pass
-#func _process(delta):
-#	pass
-
 # compute projected position
 # will return null if it cant be found
 static func calcIntersectionOfObjectAndBullet(p: Vector3, v: Vector3, targetP: Vector3, targetV: Vector3, targetR: float, projectileVelocity: float):

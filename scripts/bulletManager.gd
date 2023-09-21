@@ -97,39 +97,109 @@ func _process(delta):
 		var isBulletAnyHit: bool = false
 		
 
-		if iProjectile["age"] > 10.0: # give the bullet time to leave the bounding sphere of the ship which fired the bullet
+		if iProjectile["age"] > 0.1: # give the bullet time to leave the bounding sphere of the ship which fired the bullet
 			
+			# prototype for using engine for intersection test
 			
+			query = PhysicsRayQueryParameters3D.create(iProjectile["p2"], iProjectile["p"])
 			
-			var entitiesNode = get_node(NodePath(^"/root/rootNode/entities"))
-			var vehiclesNodes = entitiesNode.get_children()
-			for iVehicle in vehiclesNodes:
+			#query.collision_mask = 2 # only take armor into account
+			collisionInfo = space.intersect_ray(query)
+			if collisionInfo:
+				#collisionInfo.normal
+				#collisionInfo.position
 				
-				if !("fakeRadius" in iVehicle):
-					continue # it doesn't have the property thus it doesn't have the script
-				
-				
-				var diff: Vector3 = iProjectile["p"]-iProjectile["p2"]
-				
-				var planeCenter: Vector3 = iVehicle.position + (-iVehicle.transform.basis.z*-2.0)
-				var planeNormal: Vector3 = (-iVehicle.transform.basis.z*-1.0).normalized()
-				var intersectionRes = _calcRayPlaneIntersection(iProjectile["p2"], diff.normalized(), planeCenter, planeNormal)
-				
-				var armorCircleRadius: float = 5.0
-				
-				if intersectionRes != null and intersectionRes > 0.0:
-					if diff.length() < intersectionRes: # is the intersection in the interval between "p" and "p2" ?
+				if collisionInfo.collider.name == "bulletReceiver_crew":
+					print("bullet: did hit bulletReceiver_crew")
+					
+					# TODO< handle damage and bullet interaction! >
+					var vehicleNode = collisionInfo.collider.get_node(NodePath(^"..")) # get vehicle node to which the "RigidBody3D" is attached to, which is the collider
+					
+					if vehicleNode.is_in_group("vehicleA"):
+						var kineticEnergy: float = pow(iProjectile["v"].length(), 2)*iProjectile["mass"]
+						var damage: float = kineticEnergy
 						
-						var intersectionAbsoluteP: Vector3 = iProjectile["p2"] + diff.normalized()*intersectionRes
+						vehicleNode.crewPseudoHealth -= damage
+						print("bullet: did damage crew of vehicle by "+str(damage))
+				
+				if collisionInfo.collider.name == "bulletReceiver_shield":
+					print("bullet: did hit bulletReceiver_shield")
+					
+					# TODO< handle damage and bullet interaction! >
+					var vehicleNode = collisionInfo.collider.get_node(NodePath(^"..")) # get vehicle node to which the "RigidBody3D" is attached to, which is the collider
+					
+					if vehicleNode.is_in_group("vehicleA"):
+						var kineticEnergy: float = pow(iProjectile["v"].length(), 2)*iProjectile["mass"]
+						var damage: float = kineticEnergy
 						
-						var relPosition: Vector3 = planeCenter - intersectionAbsoluteP
-						if relPosition.length() < armorCircleRadius:
+						var enDamage: bool = true
+						if kineticEnergy < 1000.0: # is it to less energy to have any effect?
+							enDamage = false
+						
+						if enDamage:
+							# do damage according to kinetic energy!
+							# TODO TODO TODO
 							
-							print("[d] projectile did hit armor plate")
-							
-							# TODO LOW< implement code to compute richotete here!!! >
-							
-							isBulletAnyHit = true # stop bullet
+							pass
+						
+						isBulletAnyHit = true # stop bullet
+			
+			
+			######################
+			
+			######################
+			# commented because overhauled by using raycasting of the engine
+			#
+			#var entitiesNode = get_node(NodePath(^"/root/rootNode/entities"))
+			#var vehiclesNodes = entitiesNode.get_children()
+			#for iVehicle in vehiclesNodes:
+			#	
+			#	if !("fakeRadius" in iVehicle):
+			#		continue # it doesn't have the property thus it doesn't have the script
+			#	
+			#	
+			#	var diff: Vector3 = iProjectile["p"]-iProjectile["p2"]
+			#	
+			#	# TODO< replace with raycasting against a "bulletReceiver_shield" rigid body which has a collider as child >
+			#	
+			#	var planeCenter: Vector3 = iVehicle.position + (-iVehicle.transform.basis.z*-2.0)
+			#	var planeNormal: Vector3 = (-iVehicle.transform.basis.z*-1.0).normalized()
+			#	var intersectionRes = _calcRayPlaneIntersection(iProjectile["p2"], diff.normalized(), planeCenter, planeNormal)
+			#	
+			#	var armorCircleRadius: float = 5.0
+			#	
+			#	if intersectionRes != null and intersectionRes > 0.0:
+			#		if diff.length() < intersectionRes: # is the intersection in the interval between "p" and "p2" ?
+			#			
+			#			var intersectionAbsoluteP: Vector3 = iProjectile["p2"] + diff.normalized()*intersectionRes
+			#			
+			#			var relPosition: Vector3 = planeCenter - intersectionAbsoluteP
+			#			if relPosition.length() < armorCircleRadius:
+			#				
+			#				print("[d] projectile did hit armor plate")
+			#				
+			#				# TODO LOW< implement code to compute richotete here!!! >
+			#				
+			#				
+			#				# we are here when it is a direct impact without riccocete.
+			#				# so we need to compute the energy
+			#				var velocityDiff: Vector3 = iProjectile["v"] - iVehicle.velocity
+			#				var velocityMag: float = velocityDiff.length()
+			#				
+			#				# compute kinetic energy in joules
+			#				var kineticEnergy: float = pow(velocityMag, 2.0)*iProjectile["mass"]
+			#				
+			#				var enDamage: bool = true
+			#				if kineticEnergy < 1000.0: # is it to less energy to have any effect?
+			#					enDamage = false
+			#				
+			#				if enDamage:
+			#					# do damage according to kinetic energy!
+			#					# TODO TODO TODO
+			#					
+			#					pass
+			#				
+			#				isBulletAnyHit = true # stop bullet
 			
 			
 			### DOESNT WORK BEGIN
@@ -178,38 +248,37 @@ func putBullet(p: Vector3, v: Vector3, mass: float):
 	bullets.append(created)
 
 
+# commented because not used
 
+#static func _solveQuadratic(a: float, b: float, c: float):
+#	# see https://www.scratchapixel.com/lessons/3d-basic-rendering/minimal-ray-tracer-rendering-simple-shapes/ray-sphere-intersection.html
+#	# (code there is buggy)
+#	
+#	var discr = b*b - 4.0*a*c
+#	if discr < 0.0:
+#		return null
+#	elif discr >= 0.0:
+#		var x0 = (-b + sqrt(discr)) / (2.0*a)
+#		var x1 = (-b - sqrt(discr)) / (2.0*a)
+#		return [x0, x1]
+#
+#static func _calcRaySphereIntersection(rayOrigin: Vector3, rayDir: Vector3, center: Vector3, r: float):
+#	# see https://www.scratchapixel.com/lessons/3d-basic-rendering/minimal-ray-tracer-rendering-simple-shapes/ray-sphere-intersection.html
+#	
+#	var diff = rayOrigin - center
+#	var a: float = rayDir.dot(rayDir)
+#	var b: float = 2.0 * rayDir.dot(diff)
+#	var c: float = diff.dot(diff) - r*r
+#	return _solveQuadratic(a, b, c)
 
-static func _solveQuadratic(a: float, b: float, c: float):
-	# see https://www.scratchapixel.com/lessons/3d-basic-rendering/minimal-ray-tracer-rendering-simple-shapes/ray-sphere-intersection.html
-	# (code there is buggy)
-	
-	var discr = b*b - 4.0*a*c
-	if discr < 0.0:
-		return null
-	elif discr >= 0.0:
-		var x0 = (-b + sqrt(discr)) / (2.0*a)
-		var x1 = (-b - sqrt(discr)) / (2.0*a)
-		return [x0, x1]
-
-static func _calcRaySphereIntersection(rayOrigin: Vector3, rayDir: Vector3, center: Vector3, r: float):
-	# see https://www.scratchapixel.com/lessons/3d-basic-rendering/minimal-ray-tracer-rendering-simple-shapes/ray-sphere-intersection.html
-	
-	var diff = rayOrigin - center
-	var a: float = rayDir.dot(rayDir)
-	var b: float = 2.0 * rayDir.dot(diff)
-	var c: float = diff.dot(diff) - r*r
-	return _solveQuadratic(a, b, c)
-
-
-
-static func _calcRayPlaneIntersection(rayOrigin: Vector3, rayDirection: Vector3, planeCenter: Vector3, planeNormal: Vector3):
-	# code from https://stackoverflow.com/questions/23975555/how-to-do-ray-plane-intersection
-	
-	var denom: float = planeNormal.dot(rayDirection)
-	if (abs(denom) > 0.0001):
-		var t: float = (planeCenter - rayOrigin).dot(planeNormal) / denom
-		return t
-	
-	return null
+# commented because not used
+#static func _calcRayPlaneIntersection(rayOrigin: Vector3, rayDirection: Vector3, planeCenter: Vector3, planeNormal: Vector3):
+#	# code from https://stackoverflow.com/questions/23975555/how-to-do-ray-plane-intersection
+#	
+#	var denom: float = planeNormal.dot(rayDirection)
+#	if (abs(denom) > 0.0001):
+#		var t: float = (planeCenter - rayOrigin).dot(planeNormal) / denom
+#		return t
+#	
+#	return null
 
