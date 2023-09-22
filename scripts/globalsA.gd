@@ -2,8 +2,6 @@ extends Node
 
 class_name globalsA
 
-var sceneBulletTraceA = preload("res://assets_3d_scenes/effectBulletTraceA.tscn")
-
 func _ready():
 	# enable ambient light for PROTOTYPING
 	$"/root/rootNode/env".environment.ambient_light_energy = 0.25
@@ -56,24 +54,6 @@ func _ready():
 	
 	
 	
-	# PROTOTYPING!!! < bullet trace effect >
-	# TODO< do this in bulletTraceEffect script which is attached to node "effect_bulletTraces" >
-	
-	utils.clearChildren($"../effect_bulletTraces")
-	
-	var nodeBulletTrace: Node3D = sceneBulletTraceA.instantiate()
-	# * orient by direction of bullet
-	var bulletDir: Vector3 = Vector3(0.0, 1.0, 0.0) # normalized
-	var basis: Basis = Basis()
-	basis.y = bulletDir
-	basis.x = bulletDir.cross(Vector3(0.9999999,0.000001,0.0)).normalized()
-	basis.z = basis.x.cross(basis.y).normalized()
-	nodeBulletTrace.transform.basis = basis
-	
-	# * scale by velocity of bullet and shutter speed of simulated camera
-	var velMagnitude: float = 700.0
-	nodeBulletTrace.scale = Vector3(1.0,velMagnitude/60.0,1.0)
-	$"../effect_bulletTraces".add_child(nodeBulletTrace)
 
 func _process(delta):
 	pass

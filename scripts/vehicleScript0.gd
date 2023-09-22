@@ -31,8 +31,11 @@ var remainingFireCooldownSecondary: float = 0.0
 
 var velocity: Vector3
 
-# accumulated orientation
-var rotation2: Basis = Basis()
+# orientation of the rigid body of the vehicle
+#var rotation2: Basis = Basis()
+var orientation2: Quaternion = Quaternion()
+
+@export var angularVelocity: Vector3 = Vector3(0.0,0.0,0.0)
 
 # mass of the frame of the vehicle
 @export var frameMass: float = 4000.0
@@ -320,21 +323,8 @@ func _process(delta):
 	# 
 	
 	if not get_tree().paused:
-		var axis: Vector3
-		var rotationAmount: float
-		if rotationKind == "controlled": # if controlled rotation
-			axis = Vector3(0, 1, 0)
-			rotationAmount = controlYaw*delta*1.8
-			rotation2 = rotation2.rotated(axis, rotationAmount)
-		else: # else cinematic rotation
-			axis = cinematicRotationAxis
-			rotationAmount = delta*cinematicRotationAmount
-			rotation2 = rotation2.rotated(axis, rotationAmount)
+		angularVelocity.y = controlYaw*0.6
 		
-		
-		# set rotation to current orientation
-		transform.basis = rotation2
-	
 		#var rotationQuaternion = transform.basis.get_rotation_quaternion()
 	
 	if not get_tree().paused:
@@ -373,6 +363,14 @@ func _process(delta):
 		# rigid body dynamics
 		
 		position += (velocity*delta)
+		
+		var quatX: Quaternion = Quaternion(Vector3(1.0,0.0,0.0), angularVelocity.x*delta)
+		var quatY: Quaternion = Quaternion(Vector3(0.0,1.0,0.0), angularVelocity.y*delta)
+		var quatZ: Quaternion = Quaternion(Vector3(0.0,0.0,1.0), angularVelocity.z*delta)
+		orientation2 = orientation2*((quatX*quatY)*quatZ)
+		# set rotation to current orientation
+		var quat: Quaternion = orientation2.normalized() # we need to normalize before we convert it to Basis
+		transform.basis = Basis(quat)
 
 func calcMass():
 	return frameMass + fuelMassRemaining
