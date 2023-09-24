@@ -323,7 +323,8 @@ func _process(delta):
 	# 
 	
 	if not get_tree().paused:
-		angularVelocity.y = controlYaw*0.6
+		# HACKY PHYSICS< we set the angular velocity directly, should be accelerated with a MPC controller owned by vehicle >
+		angularVelocity.y = controlYaw*1.3
 		
 		#var rotationQuaternion = transform.basis.get_rotation_quaternion()
 	

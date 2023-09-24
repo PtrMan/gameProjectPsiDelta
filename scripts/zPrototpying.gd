@@ -65,22 +65,5 @@ func _ready():
 	
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if true:
-		var space = get_world_3d().direct_space_state
-		#var query = PhysicsRayQueryParameters3D.create(
-		#	iProjectile["p2"],
-		#	iProjectile["p"])
-		var query = PhysicsRayQueryParameters3D.create(
-			Vector3(0.02, 0.05, 30.0),
-			Vector3(0.07, 0.09, -30.0))
-		
-		
-		#query.collision_mask = 2 # only take armor into account
-		var collisionInfo = space.intersect_ray(query)
-		if collisionInfo:
-			# collisionInfo.collider.name
-			pass
-			
-			#print("HIT!!!")
+	pass
