@@ -11,9 +11,9 @@ func _process(_delta):
 	var controlledNode = z0.find_child(input0.controlledEntityName)
 	
 	if controlledNode != null:
-		var temperatureStr0: String = str(controlledNode.temperature + -273.0) # convert temperature of frame of vehicle to degree celsius
-		var chemicalFuelStr: String = str(controlledNode.fuelMassRemaining)
-		var massStr: String = str(controlledNode.calcMass())
+		var temperatureStr0: String = "%.2f" % (controlledNode.temperature + -273.0) # convert temperature of frame of vehicle to degree celsius
+		var chemicalFuelStr: String = "%.3f" % controlledNode.fuelMassRemaining
+		var massStr: String = "%.4f" % controlledNode.calcMass()
 		
 		var text: String = ""
 		if true: # add DEBUG text?
