@@ -12,9 +12,9 @@ it features a Newtonian physics engine which also takes gravity into account.
 
 # important about running / building the game with the Godot editor/engine
 
-This is a Godot 4.1 project. Using a double build of the engine is *highly RECOMMENDED*.
+This is a Godot 4.1 project. Using a double build of the engine is * **highly RECOMMENDED** *.
 
-To do that under Windows you have to build Godot with
+To do that under Windows you have to build Godot with <br />
 ```scons platform=windows precision=double```
 
 # about realism: (a love letter to realism)
