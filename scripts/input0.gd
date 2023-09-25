@@ -21,6 +21,8 @@ func _process(delta):
 		
 		controlledNode.controlAxisA = 0.0
 		controlledNode.controlYaw = 0.0
+		controlledNode.controlPitch = 0.0
+		controlledNode.controlRoll = 0.0
 		controlledNode.controlFireweapon = false
 		controlledNode.controlFireweaponSecondary = false
 		
@@ -41,6 +43,18 @@ func _process(delta):
 		if Input.is_action_pressed("yawNeg"):
 			controlledNode.controlYaw = -1.0
 		
+		if Input.is_action_pressed("pitchPos"):
+			controlledNode.controlPitch = 1.0
+		
+		if Input.is_action_pressed("pitchNeg"):
+			controlledNode.controlPitch = -1.0
+		
+		if Input.is_action_pressed("rollPos"):
+			controlledNode.controlRoll = 1.0
+		
+		if Input.is_action_pressed("rollNeg"):
+			controlledNode.controlRoll = -1.0
+		
 		
 		if Input.is_action_pressed("weaponPrimary"):
 			controlledNode.controlFireweapon = true
@@ -56,3 +70,7 @@ func _process(delta):
 		
 		if Input.is_action_just_pressed("showMap"):
 			$"../gui_static/solarMap".show2(not $"../gui_static/solarMap".visible)
+		
+		if Input.is_action_just_pressed("menuConsole"):
+			pass
+			# TODO LOW< show/hide dev console >

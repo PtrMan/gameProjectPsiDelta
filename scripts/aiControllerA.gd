@@ -63,6 +63,8 @@ func _process(delta):
 	elif selPrimaryBaseInstr == "null":
 		nodeControlled.controlAxisA = 0.0
 		nodeControlled.controlYaw = 0.0
+		nodeControlled.controlPitch = 0.0
+		nodeControlled.controlRoll = 0.0
 	elif selPrimaryBaseInstr == "forward": 
 		nodeControlled.controlAxisA = controlScalarA # accelerate ship forward in this scenario
 	elif selPrimaryBaseInstr == "orient":

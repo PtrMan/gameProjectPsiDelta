@@ -17,6 +17,11 @@ var controlAxisA: float = 0.0
 # control for yaw, in range of -1.0 to 1.0
 var controlYaw: float = 0.0
 
+# control for pitch, in range of -1.0 to 1.0
+var controlPitch: float = 0.0
+
+# control for pitch, in range of -1.0 to 1.0
+var controlRoll: float = 0.0
 
 var controlFireweapon : bool = false
 var remainingFireCooldown : float = 0.0
@@ -325,11 +330,13 @@ func _process(delta):
 	if not get_tree().paused:
 		# HACKY PHYSICS< we set the angular velocity directly, should be accelerated with a MPC controller owned by vehicle >
 		angularVelocity.y = controlYaw*1.3
+		angularVelocity.x = controlPitch*1.3
+		angularVelocity.z = controlRoll*2.1
 		
 		#var rotationQuaternion = transform.basis.get_rotation_quaternion()
 	
 	if not get_tree().paused:
-		var maxThrust = 10000.0 # in newtons
+		var maxThrust = 30000.0 # in newtons
 		var thrustScale = controlAxisA # in range -1.0 to 1.0
 		if fuelMassRemaining <= 0.0:
 			thrustScale = 0.0
