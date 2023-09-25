@@ -15,8 +15,7 @@ it features a Newtonian physics engine which also takes gravity into account.
 This is a Godot 4.1 project. Using a double build of the engine is *highly RECOMMENDED*.
 
 To do that under Windows you have to build Godot with
-
-´´´scons platform=windows precision=double´´´
+```scons platform=windows precision=double```
 
 # about realism: (a love letter to realism)
 
@@ -24,14 +23,14 @@ Other space flight simulation games don't care about realism. This was very frus
 
 Most of these soft Sci-Fi games which feature various unrelaistic "technologies" which will never be realized, because these are physically impossible, such as:
 
-non-newtonian movement (dogfights, anti-gravity, lack of gravity forces)
-Shields / Force-Fields
-Warp / teleport / wormholes
-unrealistic damage model, with damage types such as "thermal", together with unrealistic scaling of the damage and forces.
-smoke and clouds in space
-strange space anomalies
-dense asteroid fields
-dense "nebulae"
+non-newtonian movement (dogfights, anti-gravity, lack of gravity forces) <br />
+Shields / Force-Fields <br />
+Warp / teleport / wormholes <br />
+unrealistic damage model, with damage types such as "thermal", together with unrealistic scaling of the damage and forces. <br />
+strange space anomalies <br />
+dense asteroid fields <br />
+smoke and clouds in space <br />
+dense "nebulae" <br />
 
 The question is then: why care about realism of these things if a computer can simulate anything which doesn't follow any physical laws. A few reasons:
 
