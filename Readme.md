@@ -1,4 +1,4 @@
-This game is a [space flight simulation](https://en.m.wikipedia.org/wiki/List_of_space_flight_simulation_games) game with Newtonian flight mechanics at it's core. <br />
+This game is a [space flight simulation game](https://en.m.wikipedia.org/wiki/Space_flight_simulation_game) with Newtonian flight mechanics at it's core. <br />
 It aims at realistic hard Sci-Fi simulation of most aspects.
 
 upcoming features
