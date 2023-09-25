@@ -11,7 +11,7 @@
 [ext_resource type="Script" path="res://scripts/bulletManager.gd" id="4_jeht0"]
 [ext_resource type="Script" path="res://scripts/vehicleScript0.gd" id="6_vtlhs"]
 [ext_resource type="Script" path="res://scripts/aiUtils.gd" id="7_dc7gs"]
-[ext_resource type="Script" path="res://effect_bulletTraces.gd" id="8_lvcny"]
+[ext_resource type="Script" path="res://scripts/effect_bulletTraces.gd" id="8_35qtk"]
 [ext_resource type="PackedScene" uid="uid://dnqysqaawunsq" path="res://assets_3d_scenes/cargoFluidA.tscn" id="9_gxxyb"]
 [ext_resource type="PackedScene" uid="uid://ki5lnjb7teg6" path="res://assets_3d_scenes/crewCompartmentA.tscn" id="10_4bku4"]
 [ext_resource type="PackedScene" uid="uid://c4vj348atkcvp" path="res://entities/entityVehicleA.tscn" id="10_o1ku3"]
@@ -136,7 +136,7 @@ mesh = SubResource("BoxMesh_cm67f")
 skeleton = NodePath("../../z deleteme")
 
 [node name="effect_bulletTraces" type="Node3D" parent="."]
-script = ExtResource("8_lvcny")
+script = ExtResource("8_35qtk")
 
 [node name="entities" type="Node" parent="."]
 
