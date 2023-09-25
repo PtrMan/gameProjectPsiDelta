@@ -1,0 +1,342 @@
+[gd_scene load_steps=29 format=3 uid="uid://cx7573ysr3pme"]
+
+[ext_resource type="PackedScene" uid="uid://7g4e22q4dl26" path="res://elementScenes_ui/inventory.tscn" id="1_r3ajy"]
+[ext_resource type="Script" path="res://scripts/zPrototpying.gd" id="1_rpj6n"]
+[ext_resource type="Script" path="res://scripts_ui/uiHud0.gd" id="1_rps72"]
+[ext_resource type="PackedScene" uid="uid://38w3wnd0vbqu" path="res://entities/entityWarheadA.tscn" id="2_6382q"]
+[ext_resource type="Script" path="res://scripts/aiControllerA.gd" id="2_hb3iu"]
+[ext_resource type="Script" path="res://scripts_ui/uiDebug1.gd" id="2_maqkx"]
+[ext_resource type="Script" path="res://scripts/input0.gd" id="3_fb8xv"]
+[ext_resource type="Script" path="res://scripts_ui/uiHudLocationOverlay.gd" id="3_v8sk1"]
+[ext_resource type="Script" path="res://scripts/bulletManager.gd" id="4_jeht0"]
+[ext_resource type="Script" path="res://scripts/vehicleScript0.gd" id="6_vtlhs"]
+[ext_resource type="Script" path="res://scripts/aiUtils.gd" id="7_dc7gs"]
+[ext_resource type="Script" path="res://effect_bulletTraces.gd" id="8_lvcny"]
+[ext_resource type="PackedScene" uid="uid://dnqysqaawunsq" path="res://assets_3d_scenes/cargoFluidA.tscn" id="9_gxxyb"]
+[ext_resource type="PackedScene" uid="uid://ki5lnjb7teg6" path="res://assets_3d_scenes/crewCompartmentA.tscn" id="10_4bku4"]
+[ext_resource type="PackedScene" uid="uid://c4vj348atkcvp" path="res://entities/entityVehicleA.tscn" id="10_o1ku3"]
+[ext_resource type="Script" path="res://scripts/celestialManager.gd" id="11_1ctab"]
+[ext_resource type="Script" path="res://scripts/globalsA.gd" id="12_8wpjw"]
+[ext_resource type="Script" path="res://scripts_ui/uiStationMenu.gd" id="12_orduq"]
+[ext_resource type="Script" path="res://scripts_ui/uiNodeDrawMap.gd" id="16_2q04p"]
+[ext_resource type="Script" path="res://scripts_ui/uiSolarMap.gd" id="16_4ski8"]
+
+[sub_resource type="Environment" id="Environment_05bd0"]
+background_mode = 1
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.0
+glow_strength = 0.67
+glow_blend_mode = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t4yiu"]
+albedo_color = Color(0, 1, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_cm67f"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wxnwg"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7afo8"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_sgfgc"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ch3uu"]
+radius = 1.8376
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0rrcj"]
+size = Vector3(5.23352, 4.43924, 0.030918)
+
+[node name="rootNode" type="Node3D"]
+
+[node name="env" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_05bd0")
+
+[node name="prototypingStuff" type="Node3D" parent="."]
+
+[node name="gui_hud_static" type="Node2D" parent="."]
+
+[node name="hud0" type="Control" parent="gui_hud_static"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 13.0
+offset_top = 17.0
+offset_right = 1419.0
+offset_bottom = 1107.0
+script = ExtResource("1_rps72")
+
+[node name="VFlowContainer" type="VFlowContainer" parent="gui_hud_static/hud0"]
+layout_mode = 0
+offset_right = 1136.0
+offset_bottom = 616.0
+alignment = 2
+
+[node name="statusLabelA" type="Label" parent="gui_hud_static/hud0/VFlowContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Temp: -20.0°C
+Fuel: 100.0kg"
+
+[node name="hudLocationOverlay" type="Node2D" parent="gui_hud_static"]
+script = ExtResource("3_v8sk1")
+
+[node name="prototyping node" type="Node3D" parent="."]
+editor_description = "node for prototyping scripting ideas etc."
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.17367, 0)
+script = ExtResource("1_rpj6n")
+
+[node name="aiControllerA" type="Node" parent="."]
+editor_description = "controller for enemy AI ship"
+script = ExtResource("2_hb3iu")
+controlledShipNodeName = "vehicle1 enemy"
+
+[node name="z deleteme" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.17367, 0)
+
+[node name="green box" type="MeshInstance3D" parent="."]
+editor_description = "visual reference for prototyping"
+transform = Transform3D(10, 0, 0, 0, 0.1, 0, 0, 0, 10, 0, -1.49642, -2.5901)
+visible = false
+material_override = SubResource("StandardMaterial3D_t4yiu")
+mesh = SubResource("BoxMesh_cm67f")
+skeleton = NodePath("../z deleteme")
+
+[node name="inputManager0" type="Node" parent="."]
+script = ExtResource("3_fb8xv")
+entriesPath = NodePath("../entities")
+
+[node name="bulletManager" type="Node3D" parent="."]
+script = ExtResource("4_jeht0")
+
+[node name="projectiles" type="Node" parent="."]
+
+[node name="warhead1" parent="projectiles" instance=ExtResource("2_6382q")]
+yieldInJoules = 5e+06
+fuseType = "timed"
+fuseParamA = 5.0
+
+[node name="Node3D2" type="Node3D" parent="."]
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Node3D2"]
+collision_layer = 3
+collision_mask = 3
+input_ray_pickable = false
+can_sleep = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D2/RigidBody3D"]
+transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 0.025, 0, 0, -12.5883)
+shape = SubResource("BoxShape3D_wxnwg")
+
+[node name="TODOarmor0" type="MeshInstance3D" parent="Node3D2"]
+transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 0.05, 0, 0, -12.5883)
+visible = false
+layers = 2
+material_override = SubResource("StandardMaterial3D_7afo8")
+mesh = SubResource("BoxMesh_cm67f")
+skeleton = NodePath("../../z deleteme")
+
+[node name="effect_bulletTraces" type="Node3D" parent="."]
+script = ExtResource("8_lvcny")
+
+[node name="entities" type="Node" parent="."]
+
+[node name="vehicle0" type="Node3D" parent="entities"]
+script = ExtResource("6_vtlhs")
+teamName = "a"
+weaponVehicleTargetNodeName = "vehicle1 enemy"
+
+[node name="Camera3D" type="Camera3D" parent="entities/vehicle0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.35154, 9.20014)
+
+[node name="crewCompartmentA" parent="entities/vehicle0" instance=ExtResource("10_4bku4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6)
+
+[node name="cargoFluidA" parent="entities/vehicle0" instance=ExtResource("9_gxxyb")]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="entities"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, -14.9454)
+mesh = SubResource("BoxMesh_sgfgc")
+
+[node name="vehicle2" parent="entities" instance=ExtResource("10_o1ku3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.60389, 0, 0)
+teamName = "a"
+rotationKind = "cinematic"
+dockingAllowedTeams = Array[String](["a"])
+
+[node name="vehicle1 enemy" parent="entities" instance=ExtResource("10_o1ku3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.29258, 0, 0)
+
+[node name="bulletReceiver_crew" type="RigidBody3D" parent="entities/vehicle1 enemy"]
+editor_description = "receives bullets for hit test f of the part of the vehicle where the crew is located"
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.280755, 0, 0.0847659)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="entities/vehicle1 enemy/bulletReceiver_crew"]
+shape = SubResource("SphereShape3D_ch3uu")
+
+[node name="bulletReceiver_shield" type="RigidBody3D" parent="entities/vehicle1 enemy"]
+editor_description = "receives bullets for hit test f of the part of the vehicle where the crew is located"
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.280755, 0, 2.19159)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="entities/vehicle1 enemy/bulletReceiver_shield"]
+shape = SubResource("BoxShape3D_0rrcj")
+
+[node name="vehicle friendly station farpoint A" parent="entities" instance=ExtResource("10_o1ku3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 70000, 1, -183350)
+teamName = "a"
+isTravelableDestination = true
+orbitPiviotId = 0
+orbitPlaneNormal = Vector3(0, 1, 0)
+orbitPlaneSideVector = Vector3(0, 0, 1)
+orbitRadiusA = 5000.0
+orbitRadiusB = 5000.0
+
+[node name="starLightA" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.124637, -0.0588208, -0.990457, 0.98057, -0.145103, 0.13201, -0.151484, -0.987666, 0.0395927, 0, 0, 0)
+light_energy = 1.5
+light_bake_mode = 0
+shadow_enabled = true
+sky_mode = 1
+
+[node name="aiUtils" type="Node3D" parent="."]
+script = ExtResource("7_dc7gs")
+
+[node name="celestialManager" type="Node" parent="."]
+script = ExtResource("11_1ctab")
+
+[node name="fakeBackdrop_celestials" type="Node3D" parent="."]
+
+[node name="globalsA" type="Node" parent="."]
+script = ExtResource("12_8wpjw")
+
+[node name="prototyping control" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = 13.0
+offset_top = 17.0
+offset_right = 1419.0
+offset_bottom = 1107.0
+script = ExtResource("2_maqkx")
+
+[node name="GridContainer" type="GridContainer" parent="prototyping control"]
+layout_mode = 0
+offset_right = 954.0
+offset_bottom = 567.0
+columns = 2
+
+[node name="Label" type="Label" parent="prototyping control/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "TeamName"
+
+[node name="TextEdit" type="TextEdit" parent="prototyping control/GridContainer"]
+custom_minimum_size = Vector2(250, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "a"
+
+[node name="Label2" type="Label" parent="prototyping control/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "position"
+
+[node name="TextEdit2" type="TextEdit" parent="prototyping control/GridContainer"]
+custom_minimum_size = Vector2(250, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "<0.0,0.0,0.0>"
+
+[node name="spawnButton" type="Button" parent="prototyping control/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "spawn vehicle"
+
+[node name="gui_static" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="stationMenu" type="Control" parent="gui_static"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("12_orduq")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="gui_static/stationMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control2" type="Control" parent="gui_static/stationMenu/VBoxContainer"]
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+
+[node name="TabContainer" type="TabContainer" parent="gui_static/stationMenu/VBoxContainer/Control2"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+clip_tabs = false
+
+[node name="Transfer" type="Control" parent="gui_static/stationMenu/VBoxContainer/Control2/TabContainer"]
+layout_mode = 2
+
+[node name="inventory" parent="gui_static/stationMenu/VBoxContainer/Control2/TabContainer/Transfer" instance=ExtResource("1_r3ajy")]
+
+[node name="TODO" type="Control" parent="gui_static/stationMenu/VBoxContainer/Control2/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="undockButton" type="Button" parent="gui_static/stationMenu/VBoxContainer"]
+layout_mode = 2
+text = "undock"
+
+[node name="solarMap" type="Control" parent="gui_static"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("16_4ski8")
+
+[node name="solarMapView" type="Control" parent="gui_static/solarMap"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("16_2q04p")
+
+[node name="Button_TravelTo" type="Button" parent="gui_static/solarMap"]
+layout_mode = 0
+offset_left = 309.0
+offset_top = 611.0
+offset_right = 425.0
+offset_bottom = 638.0
+text = "travel to"
+
+[node name="destinationButtons" type="Control" parent="gui_static/solarMap"]
+anchors_preset = 0
+offset_left = 710.0
+offset_right = 1152.0
+offset_bottom = 604.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="gui_static/solarMap/destinationButtons"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[connection signal="pressed" from="prototyping control/GridContainer/spawnButton" to="prototyping control" method="_on_spawn_button_pressed"]
+[connection signal="button_up" from="gui_static/stationMenu/VBoxContainer/undockButton" to="gui_static/stationMenu" method="_on_undock_button_button_up"]
+[connection signal="button_up" from="gui_static/solarMap/Button_TravelTo" to="gui_static/solarMap" method="_on_button_travel_to_button_up"]

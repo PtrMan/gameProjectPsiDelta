@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://dpwqkdrymwub1"]
+
+[ext_resource type="ArrayMesh" uid="uid://difv0yjirwqek" path="res://assets_3d/arrowAproto.obj" id="1_7oqgx"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x2b55"]
+shading_mode = 0
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iecdf"]
+shading_mode = 0
+albedo_color = Color(0, 0, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l2p1p"]
+shading_mode = 0
+albedo_color = Color(0, 1, 0, 1)
+
+[node name="gizmoProto" type="Node3D"]
+
+[node name="ArrowAproto" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_7oqgx")
+surface_material_override/0 = SubResource("StandardMaterial3D_x2b55")
+
+[node name="ArrowAproto2" type="MeshInstance3D" parent="."]
+transform = Transform3D(6.12323e-17, 0, -1, 0, 1, 0, 1, 0, 6.12323e-17, 0, 0, 0)
+mesh = ExtResource("1_7oqgx")
+surface_material_override/0 = SubResource("StandardMaterial3D_iecdf")
+
+[node name="ArrowAproto3" type="MeshInstance3D" parent="."]
+transform = Transform3D(6.12323e-17, -1, 0, 1, 6.12323e-17, 0, 0, 0, 1, 0, 0, 0)
+mesh = ExtResource("1_7oqgx")
+surface_material_override/0 = SubResource("StandardMaterial3D_l2p1p")

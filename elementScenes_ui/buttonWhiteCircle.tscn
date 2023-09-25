@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://c1sfnp6026ueb"]
+
+[ext_resource type="Texture2D" uid="uid://cxsjsxhn8uv6w" path="res://assets_2d/whiteDotA.png" id="1_g2jyc"]
+
+[node name="button" type="TextureButton"]
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 120.0
+offset_bottom = 120.0
+scale = Vector2(0.125, 0.125)
+texture_normal = ExtResource("1_g2jyc")

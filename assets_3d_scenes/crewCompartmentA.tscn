@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://ki5lnjb7teg6"]
+
+[ext_resource type="Material" uid="uid://1dfqt4k537dm" path="res://materials/AlimuniumA.tres" id="1_4jfa7"]
+[ext_resource type="ArrayMesh" uid="uid://benmkeww0xy8y" path="res://assets_3d/frameBoxB0_6m.obj" id="1_qnftt"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_yjopw"]
+
+[node name="crewCompartmentA" type="Node3D"]
+
+[node name="FrameBoxB06m" type="MeshInstance3D" parent="."]
+material_override = ExtResource("1_4jfa7")
+mesh = ExtResource("1_qnftt")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(5.9, 0, 0, 0, 5.9, 0, 0, 0, 5.9, 0, 0, 0)
+mesh = SubResource("BoxMesh_yjopw")

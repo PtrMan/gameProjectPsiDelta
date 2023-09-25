@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://dnqysqaawunsq"]
+
+[ext_resource type="ArrayMesh" uid="uid://d1rnyh0pbjp8j" path="res://assets_3d/frameBoxA3_3m.obj" id="1_l613u"]
+[ext_resource type="Material" uid="uid://1dfqt4k537dm" path="res://materials/AlimuniumA.tres" id="2_57iww"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_3souo"]
+
+[node name="cargoFluidA" type="Node3D"]
+
+[node name="FrameBoxA33m" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_l613u")
+surface_material_override/0 = ExtResource("2_57iww")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, -1.5)
+mesh = SubResource("SphereMesh_3souo")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 1.5)
+mesh = SubResource("SphereMesh_3souo")

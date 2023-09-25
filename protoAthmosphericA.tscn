@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://dl1u4gk6botxo"]
+
+[ext_resource type="Shader" path="res://shaders/protoA.gdshader" id="1_esivt"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vl65c"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_kr1i7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u2fng"]
+render_priority = 0
+shader = ExtResource("1_esivt")
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.86, 0, 0, 0, 0.86, 0, 0, 0, 0.86, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_vl65c")
+mesh = SubResource("SphereMesh_kr1i7")
+skeleton = NodePath("../MeshInstance3D")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("ShaderMaterial_u2fng")
+mesh = SubResource("SphereMesh_kr1i7")

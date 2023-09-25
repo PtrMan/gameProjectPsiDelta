@@ -1,0 +1,32 @@
+[gd_scene load_steps=2 format=3 uid="uid://dmbgnv81m1vcx"]
+
+[ext_resource type="Script" path="res://scripts_ui/uiInventoryItemA.gd" id="1_ni5yo"]
+
+[node name="inventoryItemA" type="PanelContainer"]
+editor_description = "item inside a inventory"
+custom_minimum_size = Vector2(84, 64)
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 1
+script = ExtResource("1_ni5yo")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer"]
+layout_mode = 2
+mouse_filter = 1
+color = Color(0, 0, 0.388235, 1)
+
+[node name="labelAmount" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "x0"
+
+[node name="labelText" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+text = "A"
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]

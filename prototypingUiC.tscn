@@ -1,0 +1,39 @@
+[gd_scene load_steps=2 format=3 uid="uid://cg6t0isbgqn7f"]
+
+[ext_resource type="PackedScene" uid="uid://7g4e22q4dl26" path="res://elementScenes_ui/inventory.tscn" id="1_uyvh1"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Control2" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+
+[node name="TabContainer" type="TabContainer" parent="VBoxContainer/Control2"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+clip_tabs = false
+
+[node name="Trade" type="Control" parent="VBoxContainer/Control2/TabContainer"]
+layout_mode = 2
+
+[node name="inventory" parent="VBoxContainer/Control2/TabContainer/Trade" instance=ExtResource("1_uyvh1")]
+
+[node name="TODO" type="Control" parent="VBoxContainer/Control2/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="undockButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "undock"

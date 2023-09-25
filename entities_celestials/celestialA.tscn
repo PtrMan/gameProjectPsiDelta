@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://dc877tu6rwvim"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_ttfpj"]
+
+[node name="celestialA" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+cast_shadow = 0
+gi_mode = 0
+mesh = SubResource("SphereMesh_ttfpj")

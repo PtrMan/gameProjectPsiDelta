@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://38w3wnd0vbqu"]
+
+[ext_resource type="Script" path="res://scripts/bombEntity.gd" id="1_wt6lx"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ilnau"]
+
+[node name="warhead1" type="MeshInstance3D"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 2.63821)
+mesh = SubResource("BoxMesh_ilnau")
+script = ExtResource("1_wt6lx")

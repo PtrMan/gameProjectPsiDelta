@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=3 uid="uid://7g4e22q4dl26"]
+
+[ext_resource type="Script" path="res://scripts_ui/uiInventory.gd" id="1_20uly"]
+[ext_resource type="Script" path="res://scripts_ui/uiInventoryContainer.gd" id="2_7b7yc"]
+
+[node name="inventory" type="Node2D"]
+script = ExtResource("1_20uly")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="containerA" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+script = ExtResource("2_7b7yc")
+containerId = 1
+
+[node name="grid" type="GridContainer" parent="VBoxContainer/containerA"]
+layout_mode = 2
+columns = 6
+
+[node name="buttonTransfer" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Transfer"
+
+[node name="containerB" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+script = ExtResource("2_7b7yc")
+containerId = 2
+
+[node name="grid" type="GridContainer" parent="VBoxContainer/containerB"]
+layout_mode = 2
+columns = 6
+
+[connection signal="gui_input" from="VBoxContainer/containerA" to="VBoxContainer/containerA" method="_on_gui_input"]
+[connection signal="button_up" from="VBoxContainer/buttonTransfer" to="." method="_on_button_transfer_button_up"]
+[connection signal="gui_input" from="VBoxContainer/containerB" to="VBoxContainer/containerB" method="_on_gui_input"]

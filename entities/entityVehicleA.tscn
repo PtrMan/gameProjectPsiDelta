@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://c4vj348atkcvp"]
+
+[ext_resource type="Script" path="res://scripts/vehicleScript0.gd" id="1_34et1"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_cm67f"]
+
+[node name="vehicle1 enemy" type="Node3D"]
+script = ExtResource("1_34et1")
+teamName = "b"
+
+[node name="mesh0" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_cm67f")
+skeleton = NodePath("../../../z deleteme")
