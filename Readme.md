@@ -1,6 +1,26 @@
+This game is a [space flight simulation](https://en.m.wikipedia.org/wiki/List_of_space_flight_simulation_games) game with Newtonian flight mechanics at it's core. <br />
+It aims at realistic hard Sci-Fi simulation of most aspects.
+
+upcoming features
+
+* command and fly space craft, from small drones to giant vehicles
+* fight against enemy spacecraft
+
+it features a Newtonian physics engine which also takes gravity into account.
+
+
+
+# important about running / building the game with the Godot editor/engine
+
+This is a Godot 4.1 project. Using a double build of the engine is *highly RECOMMENDED*.
+
+To do that under Windows you have to build Godot with
+
+´´´scons platform=windows precision=double´´´
+
 # about realism: (a love letter to realism)
 
-Other TODO< look up if its the right term >(space combat) games don't care about realism. This was very frustrating as a hard Sci-Fi fan. Physics of most space games looks like a cartoon of the physical real world.
+Other space flight simulation games don't care about realism. This was very frustrating as a hard Sci-Fi fan. Physics of most space games looks like a cartoon of the physical real world.
 
 Most of these soft Sci-Fi games which feature various unrelaistic "technologies" which will never be realized, because these are physically impossible, such as:
 
@@ -19,3 +39,9 @@ immersion: it breaks immersion if a ship which weights 200 tons quickly stops as
 plausibility: any knowledge gained by playing the game could be transfered to the physical real world and vice versa. This is NOT the case when the game features ANY physically impossible game mechanics. <br />
 extensibility: some parts of the simulation could be used for simulating scientific experiments and vice versa. <br />
 
+# extended features
+
+These features may or may not be realized some day:
+
+* realistic simulation of a economy
+* atmospheric flight
