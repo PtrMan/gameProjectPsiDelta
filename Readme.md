@@ -14,6 +14,9 @@ it features a Newtonian physics engine which also takes gravity into account.
 
 This is a Godot 4.1 project. Using a double build of the engine is * **highly RECOMMENDED** *.
 
+To do that under Linux you have to build Godot with <br />
+```scons platform=linuxbsd precision=double```
+
 To do that under Windows you have to build Godot with <br />
 ```scons platform=windows precision=double```
 
