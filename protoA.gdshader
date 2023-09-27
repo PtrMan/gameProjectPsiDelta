@@ -70,9 +70,10 @@ void fragment() {
 	// Get camera position in World space coordinates
 	//vec3 rayOrigin = (INV_VIEW_MATRIX * vec4(0.0, 0.0, 0.0, 1.0)).xyz; // doesnt work
 	//vec3 rayOrigin = camera_worldSpace;
-	vec3 rayOrigin = -CAMERA_POSITION_WORLD; // HACK< we invert it because it gives more consistent results, but this is certainly not the right code! >
+	vec3 rayOrigin = CAMERA_POSITION_WORLD;
 	
-	vec3 rayDir = normalize(world_position-rayOrigin); // DOESNT WORK!!!
+	// wrong way // vec3 rayDir = normalize(world_position-rayOrigin); // DOESNT WORK!!!
+	vec3 rayDir = normalize((INV_VIEW_MATRIX * vec4(VIEW, 1.0)).xyz); // view vector from View space to world space
 	float ax0, ax1;
 	bool isHitSphereA = _calcRaySphereIntersection(rayOrigin, rayDir, vec3(0.0,0.0,0.0), 0.48, ax0, ax1);
 	
