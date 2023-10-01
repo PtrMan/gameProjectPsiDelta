@@ -8,7 +8,10 @@ upcoming features
 
 it features a Newtonian physics engine which also takes gravity into account.
 
+# How to run the game from the Repo?
 
+1) download assets: unpack the zip for the assets directly into the folder of the repo. https://drive.google.com/file/d/1z8BdU0Fwrs69Ue1DMjHUsePL0p4grHYr/view?usp=sharing
+2) open project in Godot Editor (see below)
 
 # important about running / building the game with the Godot editor/engine
 
