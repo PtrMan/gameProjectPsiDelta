@@ -110,6 +110,19 @@ var cargoContainerId: int
 
 
 
+# variables for cinematic linear animation
+@export var cinematicLinearAnimatedIsActive: bool = false
+@export var cinematicLinearAnimatedDestination: Vector3
+@export var cinematicLinearAnimatedStart: Vector3
+@export var cinematicLinearAnimatedRemTime: float = 1.0
+@export var cinematicLinearAnimatedOveralTime: float = 1.0
+@export var cinematicLinearAnimatedAnimationId: String = "" # unique name of the animation
+
+
+# signal which will be invoked when animation ended
+signal cinematicAnimationReachedTarget(vehicleName: String, animationId: String)
+
+
 
 func _ready():
 	add_to_group("vehicleA")
@@ -197,6 +210,22 @@ func retNearestDockableVehicle():
 
 
 func _process(delta):
+	# cinematic linear travel animation
+	if cinematicLinearAnimatedIsActive:
+		cinematicLinearAnimatedRemTime -= delta
+		
+		if cinematicLinearAnimatedRemTime < 0.0: # is linear animation completed?
+			position = cinematicLinearAnimatedDestination
+			cinematicLinearAnimatedIsActive = false
+			
+			# send signal of arrival to listeners
+			cinematicAnimationReachedTarget.emit(name, cinematicLinearAnimatedAnimationId)
+			
+			return
+		
+		var t: float = 1.0 - (cinematicLinearAnimatedRemTime / cinematicLinearAnimatedOveralTime)
+		position = utils.linearInterpolate(cinematicLinearAnimatedStart, cinematicLinearAnimatedDestination, t)
+		return
 	
 	# orbit animation
 	if orbitPiviotId != -1: # if this vehicle orbits around a celestial piviot

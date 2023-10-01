@@ -10,6 +10,8 @@ static func clearChildren(node):
 		node.remove_child(z)
 		z.queue_free()
 
+static func linearInterpolate(a: Vector3, b: Vector3, v: float) -> Vector3:
+	return a + (b-a)*v
 
 # TODO< move to utilsGame >
 static func retVehicles(z) -> Array[Node3D]:
